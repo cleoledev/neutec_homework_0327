@@ -42,6 +42,11 @@ function toggleOpen(key) {
 
 .dropdown__item.open {
   grid-template-rows: max-content 1fr;
+  background-color: #aaa;
+}
+
+.dropdown__item.open>.dropdown__btn {
+  color: yellow;
 }
 
 
@@ -50,7 +55,7 @@ function toggleOpen(key) {
 }
 
 .dropdown__btn {
-  padding: 0.5em 0;
+  padding: 1em 2em 1em 1em;
   text-align: left;
 }
 </style>
