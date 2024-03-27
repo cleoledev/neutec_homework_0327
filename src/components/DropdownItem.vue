@@ -1,29 +1,42 @@
 <script setup>
 import { ref } from 'vue'
 
-defineProps({
+const props = defineProps({
   data: {
     type: Array,
     required: true
   },
   open: {
-    type: Boolean
+    type: String,
+    default: '',
+    required: true
   }
 })
 
+const emit = defineEmits(['dropdown'])
 const currentOpened = ref('')
 
-function toggleOpen(key) {
-  currentOpened.value = currentOpened.value === key ? '' : key
+function toggleOpen(data) {
+  currentOpened.value = currentOpened.value === data.key ? '' : data.key
+  onDropdown(currentOpened.value)
+}
+
+function validate(key) {
+  return props.open.split('/').includes(key)
+}
+
+function onDropdown(value) {
+  emit('dropdown', value)
 }
 </script>
 
 <template>
   <ul class="dropdown__wrapper">
-    <li class="dropdown__item" :class="{ open: currentOpened === item.key }" v-for="item in data" :key="item.key">
-      <button class="dropdown__btn" @click="toggleOpen(item.key)">{{ item.text }}</button>
+    <li class="dropdown__item" :class="{ open: validate(item.key) }" v-for="item in data" :key="item.key">
+      <button class="dropdown__btn" @click="toggleOpen(item)">{{ item.text }}</button>
       <Transition :duration="300">
-        <DropdownItem v-if="item.children && currentOpened === item.key" :data="item.children" />
+        <DropdownItem :open="open" @dropdown="onDropdown($event ? `${item.key}/${$event}` : item.key)"
+          v-if="item.children && validate(item.key)" :data="item.children" />
       </Transition>
     </li>
   </ul>

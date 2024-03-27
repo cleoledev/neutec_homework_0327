@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import DropdownItem from './DropdownItem.vue';
 
 const props = defineProps({
@@ -10,6 +10,37 @@ const props = defineProps({
 })
 
 const isOpen = ref(false)
+const currentOpened = ref('')
+const allItems = computed(() => {
+  const data = props.data.reduce((result, item) => {
+    return result.concat(recursive(item.key, item))
+  }, [])
+
+  function recursive(level, _data) {
+    return _data.children ? [
+      {
+        ..._data,
+        text: `===${_data.text}===`,
+        level
+      },
+      ..._data.children.flatMap(o => recursive(`${level}/${o.key}`, o))
+    ] : { ..._data, level }
+  }
+
+  return data
+})
+const selectedItem = computed(() => {
+  const target = allItems.value.find(({ level }) => level === currentOpened.value)
+  return target && target.children ? null : target
+})
+
+function onToggle(key) {
+  currentOpened.value = key
+}
+
+watch(selectedItem, (v) => {
+  console.log('現在選擇：', v)
+})
 </script>
 
 <template>
@@ -25,7 +56,12 @@ const isOpen = ref(false)
     </Transition>
     <Transition name="slide">
       <div class="sidemenu__panel" v-show="isOpen">
-        <DropdownItem :data="data"></DropdownItem>
+        <select name="beverage" id="beverage" v-model="currentOpened">
+          <option value="" checked disabled>請選擇</option>
+          <option v-for="item in allItems" :key="item.key" :value="item.level">
+            {{ item.text }}</option>
+        </select>
+        <DropdownItem :data="data" @dropdown="onToggle" :open="currentOpened"></DropdownItem>
       </div>
     </Transition>
   </div>
