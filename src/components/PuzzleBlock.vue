@@ -3,13 +3,24 @@ import { onMounted, ref } from 'vue';
 import AnimatedBall from './AnimatedBall.vue';
 
 const data = [
-  { start: { x: 1, y: 1 }, end: { x: 3, y: 1 } },
-  { start: { x: 3, y: 1 }, end: { x: 3, y: 1 } },
-  { start: { x: 1, y: 3 }, end: { x: 3, y: 1 } },
-  { start: { x: 3, y: 3 }, end: { x: 3, y: 1 } }
+  { start: { x: 0.16, y: 0.16 }, end: { x: 0.5, y: 0.5 } },
+  { start: { x: 0.84, y: 0.16 }, end: { x: 0.5, y: 0.5 } },
+  { start: { x: 0.16, y: 0.84 }, end: { x: 0.5, y: 0.5 } },
+  { start: { x: 0.84, y: 0.84 }, end: { x: 0.5, y: 0.5 } }
 ]
 
 const panel = ref(null)
+const positions = ref(data)
+
+onMounted(() => {
+  const rect = panel.value.getBoundingClientRect()
+  positions.value = data.map(o => {
+    return {
+      start: { x: o.start.x * rect.width, y: o.start.y * rect.height },
+      end: { x: o.end.x * rect.width, y: o.end.y * rect.height }
+    }
+  })
+})
 </script>
 
 <template>
@@ -19,7 +30,7 @@ const panel = ref(null)
         {{ item }}
       </div>
       <div class="panel">
-        <AnimatedBall v-for="(item, idx) in data" :key="idx" :from="item.from" :to="item.to">
+        <AnimatedBall v-for="(pos, idx) in positions" :key="idx" :start="pos.start" :end="pos.end">
           {{
         idx
         +
@@ -51,7 +62,7 @@ const panel = ref(null)
   inset: 0;
 }
 
-:deep(.frame:nth-child(2)) {
+/* :deep(.frame:nth-child(2)) {
   grid-column: 3 / 4;
 }
 
@@ -63,7 +74,7 @@ const panel = ref(null)
 :deep(.frame:nth-child(4)) {
   grid-column: 3 / 4;
   grid-row: 3 / 4;
-}
+} */
 
 .box {
   display: grid;
