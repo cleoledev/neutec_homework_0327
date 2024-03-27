@@ -31,6 +31,7 @@ function toggleOpen(key) {
 .dropdown__wrapper {
   min-height: 0;
   overflow: hidden;
+  z-index: 0;
 }
 
 .dropdown__item {
