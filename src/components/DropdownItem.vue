@@ -22,7 +22,9 @@ function toggleOpen(key) {
   <ul class="dropdown__wrapper">
     <li class="dropdown__item" :class="{ open: currentOpened === item.key }" v-for="item in data" :key="item.key">
       <button class="dropdown__btn" @click="toggleOpen(item.key)">{{ item.text }}</button>
-      <DropdownItem v-if="item.children?.length" :data="item.children" :key="currentOpened === item.key" />
+      <Transition :duration="300">
+        <DropdownItem v-if="item.children && currentOpened === item.key" :data="item.children" />
+      </Transition>
     </li>
   </ul>
 </template>
