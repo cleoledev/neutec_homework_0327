@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import DropdownItem from './DropdownItem.vue';
 
 const props = defineProps({
@@ -37,6 +37,18 @@ const selectedItem = computed(() => {
 function onToggle(key) {
   currentOpened.value = key
 }
+
+onMounted(() => {
+  const cacheData = window.localStorage.getItem('dropdown')
+
+  if (cacheData) {
+    currentOpened.value = cacheData
+  }
+})
+
+watch(currentOpened, v => {
+  window.localStorage.setItem('dropdown', v)
+})
 
 watch(selectedItem, (v) => {
   console.log('現在選擇：', v)

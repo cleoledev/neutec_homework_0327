@@ -1,14 +1,14 @@
 <script setup>
-defineProps({
-  start: {
-    type: Object,
-    required: true
-  },
-  end: {
-    type: Object,
-    required: true
-  }
-})
+// defineProps({
+//   start: {
+//     type: Object,
+//     required: true
+//   },
+//   end: {
+//     type: Object,
+//     required: true
+//   }
+// })
 </script>
 
 <template>
