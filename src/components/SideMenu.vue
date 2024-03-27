@@ -63,10 +63,11 @@ const isOpen = ref(false)
   bottom: 0;
   right: 0;
   padding: 1.5rem 0;
-  min-width: 25vw;
+  width: 200px;
   color: #fff;
   background-color: #000;
   z-index: 2;
+  overflow-y: auto;
 }
 
 .sidemenu__mask {

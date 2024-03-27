@@ -57,7 +57,7 @@ function toggleOpen(key) {
 }
 
 .dropdown__btn {
-  padding: 1em 2em 1em 1em;
+  padding: 1em;
   text-align: left;
 }
 </style>
