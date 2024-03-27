@@ -5,6 +5,11 @@
   margin: 0;
 }
 
+body {
+  min-height: 100dvh;
+  display: grid;
+}
+
 ul,
 ol {
   list-style: none;
@@ -19,4 +24,10 @@ button {
   outline: none;
   font: inherit;
   color: inherit;
+}
+
+#app {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  background-color: #cecece;
 }

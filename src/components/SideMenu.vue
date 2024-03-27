@@ -37,7 +37,7 @@ const isOpen = ref(false)
   align-items: center;
   justify-content: end;
   background-color: #fff;
-  height: 80px;
+  height: 60px;
 }
 
 .trigger {
@@ -62,8 +62,8 @@ const isOpen = ref(false)
   top: 0;
   bottom: 0;
   right: 0;
-  padding: 2rem;
-  min-width: 20vw;
+  padding: 1.5rem 0;
+  min-width: 25vw;
   color: #fff;
   background-color: #000;
   z-index: 2;
