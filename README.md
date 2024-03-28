@@ -5,3 +5,11 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+
+## 分支介紹
+
+- 基礎需求：`main`
+- 額外需求
+  - 主頁面九宮格動畫第 2、3 項：`bonus-ball-2-3`
+  - 側邊選單第 1、3 項：`bonus-sidemenu-1-3`
+  - 側邊選單第 2 項：`bonus-sidemenu-2`
